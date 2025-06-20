@@ -64,7 +64,7 @@ export default function DashboardLayout({
         {children}
       </main>
       <footer className="text-center p-4 text-sm text-muted-foreground">
-        Balanced diet is important. More protein, less rice and poli 
+        Balanced diet is important too. More protein, less rice and poli 
       </footer>
     </div>
   );
