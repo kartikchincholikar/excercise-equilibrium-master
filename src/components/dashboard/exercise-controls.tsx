@@ -74,7 +74,7 @@ export function ExerciseControls({ initialData, onDataUpdate }: ExerciseControls
       <Card className="mt-8 shadow-xl bg-card/80 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="font-headline text-2xl text-primary">Daily Log</CardTitle>
-          <CardDescription>Consistency will get you good gifts</CardDescription>
+          <CardDescription>Track your consistency in different types of essential workouts</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
