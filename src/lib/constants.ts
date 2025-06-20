@@ -26,7 +26,8 @@ export const EXERCISES: Exercise[] = [
     description: 'These are short bursts of intense exercise followed by brief recovery - to build good metabolic rate and burn calories. Do not forget to warm up before workout and stretch post workout. ',
     icon: Zap,
     youtubeLinks: [
-      { title: '15 Min HIIT Workout', url: 'https://www.youtube.com/watch?v=Hhw7z3koeHs' },
+      { title: 'Hill Sprints', url: 'https://www.youtube.com/watch?v=hLc2ycFZXsU' },
+      { title: '15 Min HIIT Workout', url: 'https://www.youtube.com/watch?v=oKY6Xghfk8w' },
       { title: '30 Min Tabata Workout', url: 'https://www.youtube.com/watch?v=FZPngnN5lEI' },
     ],
     color: 'hsl(var(--chart-2))',
@@ -37,8 +38,8 @@ export const EXERCISES: Exercise[] = [
     description: 'Foundational exercises which work multiple muscle groups. Squats, push-ups, and deadlifts. Train till FAILURE i.e till you are unable to do another rep. Do not forget to warm up before workout and stretch post workout.',
     icon: Dumbbell,
     youtubeLinks: [
-      { title: 'Full Body Strength Training', url: 'https://www.youtube.com/watch?v=0Cgsee5gxkA' },
-      { title: 'Basic Foundational Strength Exercises', url: 'https://www.youtube.com/watch?v=H1F-UfC8Mb8' },
+      { title: 'Deadlift, Squat, Pushup', url: 'https://www.youtube.com/watch?v=0Cgsee5gxkA' },
+      { title: 'Strength Training', url: 'https://www.youtube.com/watch?v=H1F-UfC8Mb8' },
     ],
     color: 'hsl(var(--chart-3))',
   },
@@ -49,7 +50,11 @@ export const EXERCISES: Exercise[] = [
     icon: Waves,
     youtubeLinks: [
       { title: 'Animal Walks', url: 'https://www.youtube.com/watch?v=VhUkI4Jqhek' },
+      { title: 'Hip Mobility', url: 'https://www.youtube.com/watch?v=jj2AAH6jbHk' },
+      { title: 'Full Mobility', url: 'https://www.youtube.com/watch?v=TFSYNWPYujQ' },
+      { title: 'Stability', url: 'https://www.youtube.com/watch?v=9Slz5XXmLpM' },
       { title: 'Posture Correction', url: 'https://www.youtube.com/shorts/u9OQMBPrFgI' },
+      { title: 'Knee Prehab', url: 'https://www.youtube.com/watch?v=E62k1_JLi0A' },      
     ],
     color: 'hsl(var(--chart-4))',
   },
@@ -59,8 +64,8 @@ export const EXERCISES: Exercise[] = [
     description: 'Explosive exercises to increase power and speed. Agility drills improve coordination and ability to change direction quickly. Do not forget to warm up before workout and stretch post workout.',
     icon: Rabbit,
     youtubeLinks: [
-      { title: 'Plyometrics', url: 'https://www.youtube.com/watch?v=7NJnXJ0qYeI' },
-      { title: 'Agility Drills', url: 'https://www.youtube.com/watch?v=VchxPuX24HY' },
+      { title: 'Plyometrics 1', url: 'https://www.youtube.com/watch?v=3teK8rny4Kk' },
+      { title: 'Agility Drills', url: 'https://www.youtube.com/watch?v=RWIur-fZSDc' },
     ],
     color: 'hsl(var(--chart-5))',
   },

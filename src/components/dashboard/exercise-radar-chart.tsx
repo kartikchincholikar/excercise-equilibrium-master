@@ -132,7 +132,7 @@ export function ExerciseRadarChart({ initialData }: ExerciseRadarChartProps) {
                         {/* <PolarRadiusAxis angle={30} domain={[0, maxMark]} /> */}
                         
                         <Radar
-                            name="Exercise Count"
+                            name="Count:"
                             dataKey="value"
                             stroke="hsl(var(--primary))"
                             fill="hsla(var(--primary), 0.5)"
