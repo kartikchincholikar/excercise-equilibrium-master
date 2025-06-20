@@ -23,7 +23,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: 'hiit',
     name: 'HIIT',
-    description: 'These are short bursts of intense exercise followed by brief recovery - to build good metabolic rate and burn calories. Do not forget to warm up before workout and stretch post workout. ',
+    description: 'Short bursts of intense exercise followed by brief recovery - to build good metabolic rate and burn calories. Do not forget to warm up before workout and stretch post workout. ',
     icon: Zap,
     youtubeLinks: [
       { title: 'Hill Sprints', url: 'https://www.youtube.com/watch?v=hLc2ycFZXsU' },
@@ -35,7 +35,7 @@ export const EXERCISES: Exercise[] = [
   {
     id: 'strength',
     name: 'Strength Exercises',
-    description: 'Foundational exercises which work multiple muscle groups. Squats, push-ups, and deadlifts. Train till FAILURE i.e till you are unable to do another rep. Do not forget to warm up before workout and stretch post workout.',
+    description: 'Foundational strength exercises which work multiple muscle groups. Squats, push-ups, and deadlifts. Train till FAILURE i.e till you are unable to do another rep. Do not forget to warm up before workout and stretch post workout.',
     icon: Dumbbell,
     youtubeLinks: [
       { title: 'Deadlift, Squat, Pushup', url: 'https://www.youtube.com/watch?v=0Cgsee5gxkA' },
@@ -45,15 +45,15 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: 'mobility_stretching',
-    name: 'Mobility and Stretching',
-    description: 'Primal exercises to improve range of motion, core strength, flexibility, and reduce injury risk. Do not forget to warm up before workout and stretch post workout.',
+    name: 'Mobility and Stability',
+    description: 'Exercises to improve range of motion, core strength, flexibility, and reduce injury risk. Do not forget to warm up before workout and stretch post workout.',
     icon: Waves,
     youtubeLinks: [
       { title: 'Animal Walks', url: 'https://www.youtube.com/watch?v=VhUkI4Jqhek' },
-      { title: 'Hip Mobility', url: 'https://www.youtube.com/watch?v=jj2AAH6jbHk' },
       { title: 'Full Mobility', url: 'https://www.youtube.com/watch?v=TFSYNWPYujQ' },
       { title: 'Stability', url: 'https://www.youtube.com/watch?v=9Slz5XXmLpM' },
       { title: 'Posture Correction', url: 'https://www.youtube.com/shorts/u9OQMBPrFgI' },
+      { title: 'Hip Mobility', url: 'https://www.youtube.com/watch?v=jj2AAH6jbHk' },
       { title: 'Knee Prehab', url: 'https://www.youtube.com/watch?v=E62k1_JLi0A' },      
     ],
     color: 'hsl(var(--chart-4))',
@@ -61,10 +61,10 @@ export const EXERCISES: Exercise[] = [
   {
     id: 'plyometric_agility',
     name: 'Plyometric and Agility Training',
-    description: 'Explosive exercises to increase power and speed. Agility drills improve coordination and ability to change direction quickly. Do not forget to warm up before workout and stretch post workout.',
+    description: 'Drills to improve coordination and ability to change direction quickly. Do not forget to warm up before workout and stretch post workout.',
     icon: Rabbit,
     youtubeLinks: [
-      { title: 'Plyometrics 1', url: 'https://www.youtube.com/watch?v=3teK8rny4Kk' },
+      { title: 'Plyometrics', url: 'https://www.youtube.com/watch?v=3teK8rny4Kk' },
       { title: 'Agility Drills', url: 'https://www.youtube.com/watch?v=RWIur-fZSDc' },
     ],
     color: 'hsl(var(--chart-5))',
