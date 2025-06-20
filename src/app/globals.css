@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 39 100% 50%; /* Vibrant Orange */
+    --primary-foreground: 20 14.3% 4.1%; /* Darker text for orange bg */
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 51 100% 50%; /* Soft Yellow */
+    --accent-foreground: 24 9.8% 10%; /* Darker text for yellow bg */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 39 100% 50%; /* Vibrant Orange for ring */
+    --chart-1: 39 100% 50%; /* Orange */
+    --chart-2: 51 100% 50%; /* Yellow */
+    --chart-3: 200 100% 50%; /* A contrasting blue */
+    --chart-4: 300 100% 50%; /* A contrasting purple */
+    --chart-5: 120 100% 35%; /* A contrasting green */
+    --radius: 0.5rem;
+
+    /* Sidebar specific vars (light) - adjust if sidebar has different theme */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 39 100% 50%;
+    --sidebar-primary-foreground: 20 14.3% 4.1%;
+    --sidebar-accent: 51 100% 50%;
+    --sidebar-accent-foreground: 24 9.8% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 39 100% 50%;
+  }
+
+  .dark {
+    --background: 0 0% 7%; /* Dark Gray #121212 */
+    --foreground: 60 9.1% 97.8%; /* Light text */
+    --card: 0 0% 10%; /* Slightly lighter than background */
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 39 100% 50%; /* Vibrant Orange #FFA500 */
+    --primary-foreground: 20 14.3% 4.1%; /* Dark text on orange */
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 51 100% 50%; /* Soft Yellow #FFD700 */
+    --accent-foreground: 24 9.8% 10%; /* Dark text on yellow */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 39 100% 50%; /* Vibrant Orange for ring */
+    --chart-1: 39 100% 50%;
+    --chart-2: 51 100% 50%;
+    --chart-3: 200 100% 60%;
+    --chart-4: 300 100% 60%;
+    --chart-5: 120 100% 45%;
+
+    /* Sidebar specific vars (dark) - matching main dark theme */
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 60 9.1% 97.8%;
+    --sidebar-primary: 39 100% 50%;
+    --sidebar-primary-foreground: 20 14.3% 4.1%;
+    --sidebar-accent: 51 100% 50%;
+    --sidebar-accent-foreground: 24 9.8% 10%;
+    --sidebar-border: 0 0% 14.9%;
+    --sidebar-ring: 39 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
