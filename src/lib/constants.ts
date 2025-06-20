@@ -75,12 +75,6 @@ export const USER_N_ID = 'user_n';
 export const USER_K_ID = 'user_k';
 export const ADMIN_ID = 'admin';
 
-export const USER_PASSWORDS: Record<string, string> = {
-  [USER_N_ID]: 'walk-momos-g0dgirl',
-  [USER_K_ID]: 'primal-coffee&me',
-  [ADMIN_ID]: 'secretMessage-eggs',
-};
-
 export const LOGGED_IN_USER_COOKIE_NAME = 'exercise-equilibrium-user';
 
 export const GiftIcon = Gift;

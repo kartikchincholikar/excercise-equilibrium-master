@@ -1,100 +1,103 @@
-"use server";
+"use client";
 
-import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
-import { store } from './data';
-import type { UserExerciseData, Gift } from './data';
-import { EXERCISES, MIN_EXERCISE_COUNT, LOGGED_IN_USER_COOKIE_NAME, USER_N_ID, USER_K_ID } from './constants';
+import type { UserExerciseData, Gift } from './types'; // We'll create a types file
+import { LOGGED_IN_USER_COOKIE_NAME } from './constants';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function getUserIdFromCookie(): string | null {
-  const cookieStore = cookies();
-  const userCookie = cookieStore.get(LOGGED_IN_USER_COOKIE_NAME);
-  return userCookie ? userCookie.value : null;
+  const cookies = document.cookie.split(';').map(c => c.trim());
+  const userCookie = cookies.find(c => c.startsWith(`${LOGGED_IN_USER_COOKIE_NAME}=`));
+  return userCookie ? userCookie.split('=')[1] : null;
 }
 
-export async function getExerciseDataForCurrentUser(): Promise<UserExerciseData | null> {
-  const userId = getUserIdFromCookie();
-  if (!userId || !store.exerciseCounts[userId]) {
-    // This case should ideally not happen if user is logged in and is N or K
-    // For safety, return initial structure or null
-    const initialData: UserExerciseData = {};
-    EXERCISES.forEach(ex => initialData[ex.id] = MIN_EXERCISE_COUNT);
-    return userId && (userId === USER_N_ID || userId === USER_K_ID) ? initialData : null;
+async function apiFetch(endpoint: string, options: RequestInit = {}) {
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+  });
+  if (!response.ok) {
+    const errorBody = await response.json().catch(() => ({ message: 'An unknown error occurred.' }));
+    throw new Error(errorBody.message);
   }
-  return store.exerciseCounts[userId];
+  return response.json();
 }
+
+// Replaces the original getExerciseDataForCurrentUser and getCurrentUserGift
+export async function getDashboardData(): Promise<{ userData: UserExerciseData | null, giftData: Gift | null }> {
+  const userId = getUserIdFromCookie();
+  if (!userId) {
+    throw new Error("User not logged in");
+  }
+  return apiFetch(`/user-data?userId=${userId}`);
+}
+
 
 export async function updateExerciseCount(exerciseId: string, change: 1 | -1): Promise<{ success: boolean; message?: string; newData?: UserExerciseData }> {
   const userId = getUserIdFromCookie();
-  if (!userId || !store.exerciseCounts[userId]) {
+  if (!userId) {
     return { success: false, message: 'User not found or not authorized.' };
   }
-
-  const currentCount = store.exerciseCounts[userId][exerciseId];
-  if (currentCount === undefined) {
-    return { success: false, message: 'Invalid exercise.' };
+  
+  try {
+    const result = await apiFetch('/update-exercise', {
+      method: 'POST',
+      body: JSON.stringify({ userId, exerciseId, change }),
+    });
+    return result;
+  } catch (error: any) {
+    return { success: false, message: error.message };
   }
-
-  const newCount = currentCount + change;
-  if (newCount < MIN_EXERCISE_COUNT) {
-    return { success: false, message: `Minimum count is ${MIN_EXERCISE_COUNT}.` };
-  }
-
-  store.exerciseCounts[userId][exerciseId] = newCount;
-  revalidatePath('/dashboard'); // Revalidate dashboard to show updated chart
-  return { success: true, newData: store.exerciseCounts[userId] };
 }
 
 export async function sendGift(targetUserIds: string[], message: string): Promise<{ success: boolean; message?: string }> {
-  const adminId = getUserIdFromCookie();
-  if (adminId !== 'admin') {
-     return { success: false, message: 'Unauthorized' };
+  const adminId = getUserIdFromCookie(); // For a simple auth check on the backend
+  try {
+    const result = await apiFetch('/send-gift', {
+      method: 'POST',
+      body: JSON.stringify({ targetUserIds, message, adminId }),
+    });
+    return result;
+  } catch (error: any) {
+    return { success: false, message: error.message };
   }
-  if (!message.trim()) {
-    return { success: false, message: 'Message cannot be empty.' };
-  }
-
-  targetUserIds.forEach(userId => {
-    if (store.gifts.hasOwnProperty(userId)) {
-      store.gifts[userId] = {
-        message,
-        isRead: false,
-        timestamp: Date.now(),
-      };
-    }
-  });
-  
-  // No specific path to revalidate for gifts as it's polled or fetched on dashboard load
-  // If we had a specific gift notification component, we might revalidate its path.
-  // For now, users will see it on next dashboard visit/refresh.
-  revalidatePath('/dashboard'); // Users N/K are on dashboard
-  return { success: true, message: `Gift sent to ${targetUserIds.join(', ')}.` };
-}
-
-export async function getCurrentUserGift(): Promise<Gift | null> {
-  const userId = getUserIdFromCookie();
-  if (!userId || !store.gifts.hasOwnProperty(userId)) {
-    return null;
-  }
-  return store.gifts[userId];
 }
 
 export async function markGiftAsRead(): Promise<{ success: boolean }> {
   const userId = getUserIdFromCookie();
-  if (!userId || !store.gifts[userId]) {
+  if (!userId) {
     return { success: false };
   }
-  if (store.gifts[userId]) {
-    store.gifts[userId]!.isRead = true; 
-    // Or set to null to "consume" the gift
-    // store.gifts[userId] = null; 
-    // For this implementation, marking as read is enough, component logic will hide it.
+  try {
+    await apiFetch('/mark-gift-read', {
+      method: 'POST',
+      body: JSON.stringify({ userId }),
+    });
+    return { success: true };
+  } catch (error) {
+    return { success: false };
   }
-  revalidatePath('/dashboard');
-  return { success: true };
+}
+
+export async function login(password: string): Promise<{ success: boolean; userId?: string; message?: string }> {
+  try {
+    const result = await apiFetch('/login', {
+        method: 'POST',
+        body: JSON.stringify({ password }),
+    });
+    if (result.success && result.userId) {
+       document.cookie = `${LOGGED_IN_USER_COOKIE_NAME}=${result.userId}; path=/; max-age=${60 * 60 * 24 * 7}`;
+    }
+    return result;
+  } catch (error: any) {
+    return { success: false, message: error.message || 'Invalid password.' };
+  }
 }
 
 export async function logout() {
-  cookies().delete(LOGGED_IN_USER_COOKIE_NAME);
-  revalidatePath('/');
+  // Delete the cookie by setting its expiration date to the past
+  document.cookie = `${LOGGED_IN_USER_COOKIE_NAME}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
 }

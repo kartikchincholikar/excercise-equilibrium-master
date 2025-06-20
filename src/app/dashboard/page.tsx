@@ -1,8 +1,8 @@
-"use client"; // Required for useState, useEffect, and client components
+"use client";
 
 import { useEffect, useState } from 'react';
-import type { UserExerciseData, Gift } from '@/lib/data';
-import { getExerciseDataForCurrentUser, getCurrentUserGift } from '@/lib/actions'; 
+import type { UserExerciseData, Gift } from '@/lib/types';
+import { getDashboardData } from '@/lib/actions'; 
 import { ExerciseRadarChart } from '@/components/dashboard/exercise-radar-chart';
 import { ExerciseControls } from '@/components/dashboard/exercise-controls';
 import { GiftBoxDisplay } from '@/components/dashboard/gift-box-display';
@@ -26,11 +26,8 @@ export default function DashboardPage() {
     async function fetchData() {
       setIsLoading(true);
       try {
-        const [data, giftData] = await Promise.all([
-          getExerciseDataForCurrentUser(),
-          getCurrentUserGift()
-        ]);
-        setExerciseData(data || createDefaultExerciseData());
+        const { userData, giftData } = await getDashboardData();
+        setExerciseData(userData?.exerciseData || createDefaultExerciseData());
         setGift(giftData);
       } catch (error) {
         console.error("Failed to fetch dashboard data:", error);
